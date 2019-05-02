@@ -16,7 +16,7 @@ var fs = require('fs');
 // access spotify API using id+secret
 var spotify = new spotify(keys.spotify);
 
-var spotifySearch = function (songTitle) {
+var spotifySearch = (songTitle) => {
   // error catch
   if (songTitle === undefined) {
     songTitle = 'NOTHING'
@@ -28,7 +28,7 @@ var spotifySearch = function (songTitle) {
       query: songTitle,
     },
     // errorcatch
-    function (err, data) {
+    (err, data) => {
       if (err) {
         console.log('ERROR : ' + err);
         return;
@@ -50,3 +50,6 @@ var spotifySearch = function (songTitle) {
 // Need to build a switch case (as mentioned by Rob) that will run the correct function based off of input
 // This will require a run function that takes two arguments, first being the case, and the second being the query
 // Then, initialize the process with argv 2, and then argv 3 sliced and joined
+// var functionPick = (caseData, functionData ) => {
+
+// };
