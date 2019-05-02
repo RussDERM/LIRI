@@ -3,7 +3,7 @@ require('dotenv').config();
 //local keys file, GITignored
 var keys = require('./keys.js');
 // importing paxkages
-var spotify = require('node-spotify-api');
+var Spotify = require('node-spotify-api');
 var axios = require('axios');
 var moment = require('moment');
 var fs = require('fs');
@@ -14,9 +14,9 @@ var fs = require('fs');
 
 // Spotify API call
 // access spotify API using id+secret
-var spotify = new spotify(keys.spotify);
+var spotify = new Spotify(keys.spotify);
 
-const spotifySearch = (songTitle) => {
+var spotifySearch = (songTitle) => {
   // error catch
   if (songTitle === undefined) {
     songTitle = 'NOTHING'
@@ -52,10 +52,10 @@ const spotifySearch = (songTitle) => {
 // Then, initialize the process with argv 2, and then argv 3 sliced and joined
 
 // functionPick will take two arguments, one to tell LIRI what to do, the second being the query data
-var functionPick = (command, input) => {
+var functionPick = (command, query) => {
   switch (command) {
     case 'spotify-this-song':
-      spotifySearch(input);
+      spotifySearch(query);
       break;
   }
 };
