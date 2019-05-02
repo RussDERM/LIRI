@@ -60,7 +60,13 @@ var functionPick = (command, input) => {
   }
 };
 
-// Main function, to initialize LIRI
+// Main function, to initialize LIRI, passes formatted arguments to switch case
+var initializeLIRI = (arg1, arg2) => {
+  functionPick(arg1, arg2);
+}
+// Initialization, capture .argv input and format correctly
+initializeLIRI(process.argv[2], process.argv.slice(3).join(' '));
+
 // Begin Psudecode
 // This function will need to take index 2 and 3 from process.argv, and deliver it to the switch case in the correct format
 // .argv[2] needs no formatting, lucky for us
