@@ -26,6 +26,7 @@ var spotifySearch = (songTitle) => {
     {
       type: 'track',
       query: songTitle,
+      limit: 5
     },
     // errorcatch
     (err, data) => {
@@ -34,8 +35,11 @@ var spotifySearch = (songTitle) => {
         return;
       }
       // log result
-      var song = data;
-      console.log(song);
+      var songs = data.tracks.items;
+      console.log(songs);
+
+      // Begin Psudeo for logging Spotify Data to console
+      // Because spotify returns so many songs, I will limit the response to 5, and then loop through the data 
 
     }
   );
