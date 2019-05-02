@@ -16,7 +16,7 @@ var fs = require('fs');
 // access spotify API using id+secret
 var spotify = new spotify(keys.spotify);
 
-var spotifySearch = (songTitle) => {
+const spotifySearch = (songTitle) => {
   // error catch
   if (songTitle === undefined) {
     songTitle = 'NOTHING'
