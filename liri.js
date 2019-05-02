@@ -59,3 +59,9 @@ var functionPick = (command, input) => {
       break;
   }
 };
+
+// Main function, to initialize LIRI
+// Begin Psudecode
+// This function will need to take index 2 and 3 from process.argv, and deliver it to the switch case in the correct format
+// .argv[2] needs no formatting, lucky for us
+// .argv[3] might not be the entire query, due to spaces. Will need to slice from 3 on, and join on the space
