@@ -44,3 +44,9 @@ var spotifySearch = function (songTitle) {
 // include an error catch 
 // grab whatever is coming back, and log it for all to see
 // peel the correct data out of there, and sent it to the console
+
+
+// BEGIN P.S. for switchcase and run method
+// Need to build a switch case (as mentioned by Rob) that will run the correct function based off of input
+// This will require a run function that takes two arguments, first being the case, and the second being the query
+// Then, initialize the process with argv 2, and then argv 3 sliced and joined
