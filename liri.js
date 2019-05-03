@@ -48,12 +48,12 @@ var spotifySearch = (songTitle) => {
       // Because spotify returns so many songs, I will limit the response to 5, and then loop through the data 
       // in order to get the artist name while still looping, a helper function will be passed to .map(callback)
       for (let i = 0; i < songs.length; i++) {
-        console.log(i);
-        console.log(songs[i].artists.map(artistName));
-
-
-
-
+        // starts logging at 1 instead of zero, for a cleaner console.
+        var indexer = i + 1;
+        console.log(indexer);
+        console.log('Artist: ', songs[i].artists.map(artistName));
+        console.log('Song Link: ', songs[i].preview_url);
+        console.log('Album: ', songs[i].album.name);
       }
     }
   );
