@@ -10,24 +10,14 @@ var fs = require('fs');
 const divider = '\n------------------------------------------------------\n'
 // BEGIN PSUDEOCODE
 
-// Access spotify using the key, following syntax from instructions
-// BEGIN FIRST STEP PSUDEOCODE
+// Begin PSUDEO for concertSearch function.
+// Axios method to call the API. Once the data is returned, Ill be snatching Venue name, location, and date
+// Date will have to be formatted using the moment package.
 
-// Spotify API call
-// access spotify API using id+secret
-var spotify = new Spotify(keys.spotify);
-
-// helper function for grabbing artist name, since it is in it's own array
-var artistName = (artist) => {
-  //pass in artist, will return artist.name
-  return artist.name;
-}
 
 //Begin PSUDEO for movieSearch function
 // I'll have to use the axios method to get the movie data. There will be a variable that contains the query from .argv,
 // that data, joined, will be stuck into the query API call. Much simpler than Spotify.
-
-
 var movieSearch = (movieTitle) => {
   // error catch
   if (movieTitle === undefined) {
@@ -45,7 +35,7 @@ var movieSearch = (movieTitle) => {
         console.log(divider);
         console.log('Movie: ' + data.Title);
         console.log('Year: ' + data.Year);
-        console.log('IMDB Rating: ' + data.imdbRating + 'out of 10');
+        console.log('IMDB Rating: ' + data.imdbRating + ' out of 10');
         console.log('Rotten Tomatoes Rating: ' + ratings[1].Value);
         console.log('Made in: ' + data.Country);
         // Should log the first langage listed, which will be the original language that the movie is recorded in.
@@ -60,6 +50,18 @@ var movieSearch = (movieTitle) => {
         console.log(divider);
       })
   }
+}
+
+// Access spotify using the key, following syntax from instructions
+
+// Spotify API call
+// access spotify API using id+secret
+var spotify = new Spotify(keys.spotify);
+
+// helper function for grabbing artist name, since it is in it's own array
+var artistName = (artist) => {
+  //pass in artist, will return artist.name
+  return artist.name;
 }
 
 var spotifySearch = (songTitle) => {
