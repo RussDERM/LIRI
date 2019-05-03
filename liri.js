@@ -97,6 +97,8 @@ var functionPick = (command, query) => {
     case 'movie-this':
       movieSearch(query);
       break;
+    default:
+      console.log('BEEP BOOP, YOU HAVE NOT GIVEN ME THE CORRECT INPUT.');
   };
 
 };
