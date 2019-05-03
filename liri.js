@@ -27,8 +27,18 @@ var artistName = (artist) => {
 // that data, joined, will be stuck into the query API call. Much simpler than Spotify.
 
 
-var movieSearch = (movieTitle) = > {
-
+var movieSearch = (movieTitle) => {
+  // error catch
+  if (movieTitle === undefined) {
+    movieTitle === 'Shreck 2'
+  } else {
+    axios
+      .get('http://www.omdbapi.com/?t=' + movieTitle + '&y=&plot=short&apikey=trilogy')
+      .then(function (response) {
+        var data = response.data;
+        console.log(data);
+      })
+  }
 }
 
 var spotifySearch = (songTitle) => {
