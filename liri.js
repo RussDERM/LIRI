@@ -7,6 +7,7 @@ var Spotify = require('node-spotify-api');
 var axios = require('axios');
 var moment = require('moment');
 var fs = require('fs');
+const divider = '\n------------------------------------------------------\n\n'
 // BEGIN PSUDEOCODE
 
 // Access spotify using the key, following syntax from instructions
@@ -30,13 +31,34 @@ var artistName = (artist) => {
 var movieSearch = (movieTitle) => {
   // error catch
   if (movieTitle === undefined) {
-    movieTitle === 'Shreck 2'
+    movieTitle === 'Boondock Saints'
   } else {
     axios
       .get('http://www.omdbapi.com/?t=' + movieTitle + '&y=&plot=short&apikey=trilogy')
       .then(function (response) {
         var data = response.data;
-        console.log(data);
+        // pull out the ratings into its own array, to access later
+        var ratings = data.Ratings
+        // pull langages into array, to access later
+        var languages = data.Language.split(', ');
+        // Paul Bunyan
+        console.log(divider);
+        console.log('Movie: ' + data.Title);
+        console.log('Year: ' + data.Year);
+        console.log('IMDB Rating: ' + data.imdbRating + 'out of 10');
+        console.log('Rotten Tomatoes Rating: ' + ratings[1].Value);
+        console.log('Made in: ' + data.Country);
+        // Should log the first langage listed, which will be the original language that the movie is recorded in.
+        console.log('Original Language: ' + languages[0]);
+        console.log('Other Languages Include:');
+        // loop through remaining languages
+        for (let i = 1; i < languages.length; i++) {
+          console.log(' -' + languages[i]);
+        }
+        console.log('Plot Summary: ' + data.Plot);
+        
+        console.log(divider);
+
       })
   }
 }
