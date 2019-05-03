@@ -16,6 +16,12 @@ var fs = require('fs');
 // access spotify API using id+secret
 var spotify = new Spotify(keys.spotify);
 
+// helper function for grabbing artist name, since it is in it's own array
+var artistName = (artist) => {
+  //pass in artist, will return artist.name
+  return artist.name;
+}
+
 var spotifySearch = (songTitle) => {
   // error catch
   if (songTitle === undefined) {
@@ -40,7 +46,15 @@ var spotifySearch = (songTitle) => {
 
       // Begin Psudeo for logging Spotify Data to console
       // Because spotify returns so many songs, I will limit the response to 5, and then loop through the data 
+      // in order to get the artist name while still looping, a helper function will be passed to .map(callback)
+      for (let i = 0; i < songs.length; i++) {
+        console.log(i);
+        console.log(songs[i].artists.map(artistName));
 
+
+
+
+      }
     }
   );
 }
