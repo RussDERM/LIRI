@@ -22,6 +22,15 @@ var artistName = (artist) => {
   return artist.name;
 }
 
+//Begin PSUDEO for movieSearch function
+// I'll have to use the axios method to get the movie data. There will be a variable that contains the query from .argv,
+// that data, joined, will be stuck into the query API call. Much simpler than Spotify.
+
+
+var movieSearch = (movieTitle) = > {
+
+}
+
 var spotifySearch = (songTitle) => {
   // error catch
   if (songTitle === undefined) {
@@ -75,7 +84,11 @@ var functionPick = (command, query) => {
     case 'spotify-this-song':
       spotifySearch(query);
       break;
-  }
+    case 'movie-this':
+      movieSearch(query);
+      break;
+  };
+
 };
 
 // Main function, to initialize LIRI, passes formatted arguments to switch case
