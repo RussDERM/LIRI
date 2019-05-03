@@ -7,7 +7,7 @@ var Spotify = require('node-spotify-api');
 var axios = require('axios');
 var moment = require('moment');
 var fs = require('fs');
-const divider = '\n------------------------------------------------------\n\n'
+const divider = '\n------------------------------------------------------\n'
 // BEGIN PSUDEOCODE
 
 // Access spotify using the key, following syntax from instructions
@@ -56,9 +56,8 @@ var movieSearch = (movieTitle) => {
           console.log(' -' + languages[i]);
         }
         console.log('Plot Summary: ' + data.Plot);
-        
+        console.log('Actors: ' + data.Actors);
         console.log(divider);
-
       })
   }
 }
