@@ -15,7 +15,39 @@ const dividerSmall = '----------------------------'
 // Begin PSUDEO for concertSearch function.
 // Axios method to call the API. Once the data is returned, Ill be snatching Venue name, location, and date
 // Date will have to be formatted using the moment package.
+// https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp
 
+var concertSearch = (artist) => {
+  // no data?
+  if (!artist.length) {
+    console.log('-----------------------------------------------------------------------------');
+    console.log('LIRI : You did not specify which musician(s) you would like me to search for.');
+    console.log('-----------------------------------------------------------------------------');
+    return;
+  }
+  //
+  var bandURL = 'https://rest.bandsintown.com/artists/' + artist + '/events?app_id=codingbootcamp';
+  axios.get(bandURL).then(function (response) {
+    var showData = response.data;
+    console.log();
+    console.log('\nLIRI : Here are your concert results: ');
+    console.log(dividerSmall);
+    for (let i = 0; i < showData.length; i++) {
+      const element = showData[i];
+      const indexer = i + 1;
+      console.log('Show #' + indexer + ' -');
+      console.log('Venue: ' + element.venue.name);
+      // log city if region is not an option
+      console.log(country'Location: ' + element.venue.city + ', ' + (element.venue.region || element.venue.country));
+
+      // console.log(+ ', in ' + element.venue.region + ' ' + element.venue.country);
+    }
+
+
+
+  })
+
+}
 
 
 //Begin PSUDEO for movieSearch function
@@ -24,6 +56,7 @@ const dividerSmall = '----------------------------'
 var movieSearch = (movieTitle) => {
   // error catch
   if (!movieTitle.length) {
+    // no data response
     // no divider var, for custom length
     console.log('-----------------------------------------------------------------------');
     console.log('LIRI : You did not specify which movie you would like me to search for.');
@@ -31,10 +64,10 @@ var movieSearch = (movieTitle) => {
     return;
   }
 
-  var url = 'http://www.omdbapi.com/?t=' + movieTitle + '&y=&plot=short&apikey=trilogy';
+  var movieURL = 'http://www.omdbapi.com/?t=' + movieTitle + '&y=&plot=short&apikey=trilogy';
 
   axios
-    .get(url)
+    .get(movieURL)
     .then(function (response) {
       var data = response.data;
       // pull out the ratings into its own array, to access later
@@ -42,18 +75,22 @@ var movieSearch = (movieTitle) => {
       // pull langages into array, to access later
       var languages = data.Language.split(', ');
       // Paul Bunyan
+      console.log('\nLIRI : Here are your movie results: ');
       console.log(divider);
       console.log('Movie: ' + data.Title);
       console.log('Year: ' + data.Year);
       console.log('IMDB Rating: ' + data.imdbRating + ' out of 10');
       console.log('Rotten Tomatoes Rating: ' + ratings[1].Value);
       console.log('Made in: ' + data.Country);
-      // Should log the first langage listed, which will be the original language that the movie is recorded in.
-      console.log('Original Language: ' + languages[0]);
-      console.log('Other Languages Include:');
-      // loop through remaining languages
-      for (let i = 1; i < languages.length; i++) {
-        console.log(' -' + languages[i]);
+      // Should log the first langage listed, which will be the primary language
+      console.log('Primary Language: ' + languages[0]);
+      // loop through remaining languages, only if they are present
+      if (languages.length === 1) {
+      } else {
+        console.log('Other Languages Include:');
+        for (let i = 1; i < languages.length; i++) {
+          console.log(' -' + languages[i]);
+        }
       }
       console.log('Plot Summary: ' + data.Plot);
       console.log('Actors: ' + data.Actors);
@@ -102,7 +139,7 @@ var spotifySearch = (songTitle) => {
       // Because spotify returns so many songs, I will limit the response to 5, and then loop through the data 
       // in order to get the artist name while still looping, a helper function will be passed to .map(callback)
       // Liri 
-      console.log('LIRI : Here are your song results: ');
+      console.log('\nLIRI : Here are your song results: ');
       console.log(dividerSmall);
 
       for (let i = 0; i < songs.length; i++) {
@@ -138,6 +175,9 @@ var functionPick = (command, query) => {
       break;
     case 'movie-this':
       movieSearch(query);
+      break;
+    case 'concert-this':
+      concertSearch(query);
       break;
     default:
       console.log('----------------------------------------------------------------');
