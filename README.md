@@ -1,4 +1,7 @@
 # LIRI
+
+THIS APP IS HOSTED HERE : https://russderm.github.io/LIRI/.
+
 LIRI is a interactive node application that takes simple commands and performs functions with them.
 
 She accepts commands through terminal input, and can return specific data related to your query.
