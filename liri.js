@@ -7,16 +7,11 @@ var Spotify = require('node-spotify-api');
 var axios = require('axios');
 var moment = require('moment');
 var fs = require('fs');
+// globals
 const divider = '\n----------------------------\n'
 const dividerSmall = '----------------------------'
 
-// BEGIN PSUDEOCODE
-
-// Begin PSUDEO for concertSearch function.
-// Axios method to call the API. Once the data is returned, Ill be snatching Venue name, location, and date
-// Date will have to be formatted using the moment package.
-// https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp
-
+// concert searching function
 var concertSearch = (artist) => {
   // no data?
   if (!artist.length) {
@@ -50,10 +45,7 @@ var concertSearch = (artist) => {
 
 }
 
-
-//Begin PSUDEO for movieSearch function
-// I'll have to use the axios method to get the movie data. There will be a variable that contains the query from .argv,
-// that data, joined, will be stuck into the query API call. Much simpler than Spotify.
+// movie searching function
 var movieSearch = (movieTitle) => {
   // error catch
   if (!movieTitle.length) {
@@ -64,7 +56,7 @@ var movieSearch = (movieTitle) => {
     console.log('-----------------------------------------------------------------------');
     return;
   }
-
+  // API URL
   var movieURL = 'http://www.omdbapi.com/?t=' + movieTitle + '&y=&plot=short&apikey=trilogy';
 
   axios
@@ -157,16 +149,7 @@ var spotifySearch = (songTitle) => {
     }
   );
 }
-// write a function(songTitle) that queries spotify for a song, and returns
-// include an error catch 
-// grab whatever is coming back, and log it for all to see
-// peel the correct data out of there, and sent it to the console
 
-
-// BEGIN P.S. for switchcase and run method
-// Need to build a switch case (as mentioned by Rob) that will run the correct function based off of input
-// This will require a run function that takes two arguments, first being the case, and the second being the query
-// Then, initialize the process with argv 2, and then argv 3 sliced and joined
 
 // functionPick will take two arguments, one to tell LIRI what to do, the second being the query data
 var functionPick = (command, query) => {
@@ -194,8 +177,3 @@ var initializeLIRI = (arg1, arg2) => {
 }
 // Initialization, capture .argv input and format correctly
 initializeLIRI(process.argv[2], process.argv.slice(3).join(' '));
-
-// Begin Psudecode
-// This function will need to take index 2 and 3 from process.argv, and deliver it to the switch case in the correct format
-// .argv[2] needs no formatting, lucky for us
-// .argv[3] might not be the entire query, due to spaces. Will need to slice from 3 on, and join on the space
