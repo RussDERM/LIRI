@@ -35,12 +35,13 @@ var concertSearch = (artist) => {
     for (let i = 0; i < showData.length; i++) {
       const element = showData[i];
       const indexer = i + 1;
+      console.log(dividerSmall);
       console.log('Show #' + indexer + ' -');
       console.log('Venue: ' + element.venue.name);
       // log city if region is not an option
-      console.log(country'Location: ' + element.venue.city + ', ' + (element.venue.region || element.venue.country));
-
-      // console.log(+ ', in ' + element.venue.region + ' ' + element.venue.country);
+      console.log('Location: ' + element.venue.city + ', ' + (element.venue.region || element.venue.country));
+      console.log('Date: ' + moment(element.datetime).format('MM/DD/YYY'));
+      console.log(dividerSmall);
     }
 
 
