@@ -7,7 +7,9 @@ var Spotify = require('node-spotify-api');
 var axios = require('axios');
 var moment = require('moment');
 var fs = require('fs');
-const divider = '\n------------------------------------------------------\n'
+const divider = '\n----------------------------\n'
+const dividerSmall = '----------------------------'
+
 // BEGIN PSUDEOCODE
 
 // Begin PSUDEO for concertSearch function.
@@ -15,41 +17,49 @@ const divider = '\n------------------------------------------------------\n'
 // Date will have to be formatted using the moment package.
 
 
+
 //Begin PSUDEO for movieSearch function
 // I'll have to use the axios method to get the movie data. There will be a variable that contains the query from .argv,
 // that data, joined, will be stuck into the query API call. Much simpler than Spotify.
 var movieSearch = (movieTitle) => {
   // error catch
-  if (movieTitle === undefined) {
-    movieTitle === 'Boondock Saints'
-  } else {
-    axios
-      .get('http://www.omdbapi.com/?t=' + movieTitle + '&y=&plot=short&apikey=trilogy')
-      .then(function (response) {
-        var data = response.data;
-        // pull out the ratings into its own array, to access later
-        var ratings = data.Ratings
-        // pull langages into array, to access later
-        var languages = data.Language.split(', ');
-        // Paul Bunyan
-        console.log(divider);
-        console.log('Movie: ' + data.Title);
-        console.log('Year: ' + data.Year);
-        console.log('IMDB Rating: ' + data.imdbRating + ' out of 10');
-        console.log('Rotten Tomatoes Rating: ' + ratings[1].Value);
-        console.log('Made in: ' + data.Country);
-        // Should log the first langage listed, which will be the original language that the movie is recorded in.
-        console.log('Original Language: ' + languages[0]);
-        console.log('Other Languages Include:');
-        // loop through remaining languages
-        for (let i = 1; i < languages.length; i++) {
-          console.log(' -' + languages[i]);
-        }
-        console.log('Plot Summary: ' + data.Plot);
-        console.log('Actors: ' + data.Actors);
-        console.log(divider);
-      })
+  if (!movieTitle.length) {
+    // no divider var, for custom length
+    console.log('-----------------------------------------------------------------------');
+    console.log('LIRI : You did not specify which movie you would like me to search for.');
+    console.log('-----------------------------------------------------------------------');
+    return;
   }
+
+  var url = 'http://www.omdbapi.com/?t=' + movieTitle + '&y=&plot=short&apikey=trilogy';
+
+  axios
+    .get(url)
+    .then(function (response) {
+      var data = response.data;
+      // pull out the ratings into its own array, to access later
+      var ratings = data.Ratings
+      // pull langages into array, to access later
+      var languages = data.Language.split(', ');
+      // Paul Bunyan
+      console.log(divider);
+      console.log('Movie: ' + data.Title);
+      console.log('Year: ' + data.Year);
+      console.log('IMDB Rating: ' + data.imdbRating + ' out of 10');
+      console.log('Rotten Tomatoes Rating: ' + ratings[1].Value);
+      console.log('Made in: ' + data.Country);
+      // Should log the first langage listed, which will be the original language that the movie is recorded in.
+      console.log('Original Language: ' + languages[0]);
+      console.log('Other Languages Include:');
+      // loop through remaining languages
+      for (let i = 1; i < languages.length; i++) {
+        console.log(' -' + languages[i]);
+      }
+      console.log('Plot Summary: ' + data.Plot);
+      console.log('Actors: ' + data.Actors);
+      console.log(divider);
+    })
+
 }
 
 // Access spotify using the key, following syntax from instructions
@@ -66,8 +76,12 @@ var artistName = (artist) => {
 
 var spotifySearch = (songTitle) => {
   // error catch
-  if (songTitle === undefined) {
-    songTitle = 'NOTHING'
+  if (!songTitle.length) {
+    // no divider var, for custom length
+    console.log('----------------------------------------------------------------------');
+    console.log('LIRI : You did not specify which song you would like me to search for.');
+    console.log('----------------------------------------------------------------------');
+    return;
   }
   // send spotify the query
   spotify.search(
@@ -84,18 +98,23 @@ var spotifySearch = (songTitle) => {
       }
       // log result
       var songs = data.tracks.items;
-      console.log(songs);
-
       // Begin Psudeo for logging Spotify Data to console
       // Because spotify returns so many songs, I will limit the response to 5, and then loop through the data 
       // in order to get the artist name while still looping, a helper function will be passed to .map(callback)
+      // Liri 
+      console.log('LIRI : Here are your song results: ');
+      console.log(dividerSmall);
+
       for (let i = 0; i < songs.length; i++) {
         // starts logging at 1 instead of zero, for a cleaner console.
         var indexer = i + 1;
-        console.log(indexer);
+        console.log('- ' + indexer + ' -');
+        console.log(dividerSmall);
         console.log('Artist: ', songs[i].artists.map(artistName));
         console.log('Song Link: ', songs[i].preview_url);
         console.log('Album: ', songs[i].album.name);
+        console.log(dividerSmall);
+
       }
     }
   );
@@ -121,7 +140,9 @@ var functionPick = (command, query) => {
       movieSearch(query);
       break;
     default:
-      console.log('BEEP BOOP, YOU HAVE NOT GIVEN ME THE CORRECT INPUT.');
+      console.log('----------------------------------------------------------------');
+      console.log('LIRI : You did not specify what you would like me to search for.');
+      console.log('----------------------------------------------------------------');
   };
 
 };
